@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="claro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedro | Portfólio de Desenvolvimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Figtree:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--papel:#e8eef0;--papel2:#dbe5e8;--tinta:#13203a;--suave:#4a5a75;--linha:#b9c8cf;
+--sinal:#ffc83d;--menta:#5fcfb6;--card:#f6f9fa;--codigo:#13203a;--codigo-t:#d7e4ff;
+--fonte-t:'Bricolage Grotesque',Georgia,serif;--fonte:'Figtree',system-ui,sans-serif;--mono:'JetBrains Mono',Consolas,monospace;
+}
+[data-theme="escuro"]{
+--papel:#0f1626;--papel2:#16203a;--tinta:#e8eefc;--suave:#9fb0d0;--linha:#2a3858;
+--card:#182240;--codigo:#0a0f1c;--codigo-t:#d7e4ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{font-family:var(--fonte);background:var(--papel);color:var(--tinta);line-height:1.65;
+background-image:linear-gradient(var(--linha) 1px,transparent 1px),linear-gradient(90deg,var(--linha) 1px,transparent 1px);
+background-size:40px 40px;background-attachment:fixed;transition:background-color .3s,color .3s}
+body::before{content:"";position:fixed;inset:0;background:var(--papel);opacity:.82;z-index:-1;pointer-events:none}
+a{color:inherit}
+img,svg{max-width:100%}
+.wrap{width:min(1120px,92%);margin-inline:auto}
+:focus-visible{outline:3px solid var(--sinal);outline-offset:3px;border-radius:4px}
+
+header{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--papel);border-bottom:2px solid var(--tinta)}
+.barra{display:flex;align-items:center;justify-content:space-between;height:64px}
+.marca{font-family:var(--mono);font-weight:700;text-decoration:none;font-size:1.05rem;background:var(--sinal);color:#13203a;padding:4px 10px;border-radius:4px}
+nav ul{display:flex;gap:6px;list-style:none;align-items:center}
+nav a.lk{display:block;padding:8px 14px;text-decoration:none;font-weight:500;border-radius:999px;font-size:.95rem}
+nav a.lk:hover{background:var(--papel2)}
+nav a.lk.ativo{background:var(--tinta);color:var(--papel)}
+.tema{background:none;border:2px solid var(--tinta);color:var(--tinta);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;margin-left:8px}
+.tema:hover{background:var(--papel2)}
+.burger{display:none;background:none;border:2px solid var(--tinta);border-radius:8px;width:42px;height:42px;cursor:pointer;color:var(--tinta);font-size:1.3rem}
+#progresso{position:absolute;left:0;bottom:-4px;height:4px;width:0;background:var(--menta)}
+
+section{padding:96px 0}
+h1,h2,h3{font-family:var(--fonte-t);line-height:1.1;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4.5vw,3rem);font-weight:800;margin-bottom:12px}
+.sub{color:var(--suave);max-width:60ch;margin-bottom:40px}
+
+#inicio{padding-top:150px;min-height:100vh;display:flex;align-items:center}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.4rem,5.6vw,4.4rem);font-weight:800;margin-bottom:22px}
+.hero h1 span{display:inline;background:linear-gradient(transparent 62%,var(--sinal) 62%)}
+.hero p{font-size:1.12rem;color:var(--suave);max-width:46ch;margin-bottom:30px}
+.botoes{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 24px;border:2px solid var(--tinta);border-radius:8px;font-weight:700;text-decoration:none;background:var(--tinta);color:var(--papel);box-shadow:5px 5px 0 var(--menta);transition:transform .15s,box-shadow .15s;cursor:pointer;font-family:inherit;font-size:1rem}
+.btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--menta)}
+.btn.vazio{background:transparent;color:var(--tinta);box-shadow:5px 5px 0 var(--sinal)}
+.btn.vazio:hover{box-shadow:2px 2px 0 var(--sinal)}
+
+.editor{background:var(--codigo);color:var(--codigo-t);border-radius:12px;border:2px solid var(--tinta);box-shadow:10px 10px 0 var(--tinta);overflow:hidden;font-family:var(--mono);font-size:.9rem}
+[data-theme="escuro"] .editor{box-shadow:10px 10px 0 var(--menta)}
+.editor .topo{display:flex;gap:7px;align-items:center;padding:12px 16px;background:#1d2c52}
+.editor .topo i{width:11px;height:11px;border-radius:50%;background:#ff6b6b}
+.editor .topo i:nth-child(2){background:var(--sinal)}
+.editor .topo i:nth-child(3){background:var(--menta)}
+.editor .topo b{margin-left:10px;font-weight:400;font-size:.8rem;color:#9fb3e0}
+#codigo{padding:20px;min-height:280px;white-space:pre-wrap;word-break:break-word}
+.cursor{display:inline-block;width:8px;height:1em;background:var(--sinal);vertical-align:text-bottom;animation:pisca 1s steps(2) infinite}
+@keyframes pisca{50%{opacity:0}}
+.k{color:#ff9ec4}.s{color:#9cf0d8}.n{color:var(--sinal)}.c{color:#7d8fb8}
+
+.sobre{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}
+.foto{aspect-ratio:1;background:var(--sinal);border:2px solid var(--tinta);border-radius:14px;display:grid;place-items:center;font-family:var(--fonte-t);font-size:6rem;font-weight:800;color:#13203a;box-shadow:8px 8px 0 var(--tinta);transform:rotate(-2deg);max-width:340px;overflow:hidden}
+.foto img{width:100%;height:100%;object-fit:cover}
+.sobre p{margin-bottom:16px}
+.fatos{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:26px}
+.fato{background:var(--card);border:2px solid var(--tinta);border-radius:10px;padding:14px 16px}
+.fato small{display:block;color:var(--suave);font-size:.8rem}
+.fato strong{font-family:var(--fonte-t);font-size:1.15rem}
+
+.abas{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.aba{font-family:var(--fonte);font-weight:700;font-size:.95rem;padding:9px 18px;border-radius:999px;border:2px solid var(--tinta);background:transparent;color:var(--tinta);cursor:pointer}
+.aba:hover{background:var(--papel2)}
+.aba[aria-selected="true"]{background:var(--tinta);color:var(--papel)}
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.tec{background:var(--card);border:2px solid var(--tinta);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:10px;animation:entra .35s both}
+@keyframes entra{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.tec header{all:unset;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tec h3{font-size:1.15rem}
+.selo{font-family:var(--mono);font-size:.72rem;padding:3px 8px;border-radius:4px;background:var(--menta);color:#0d2a25;font-weight:700}
+.selo.est{background:var(--sinal);color:#3a2c00}
+.tec p{font-size:.9rem;color:var(--suave)}
+.nivel{height:8px;background:var(--papel2);border-radius:99px;overflow:hidden;border:1px solid var(--linha)}
+.nivel span{display:block;height:100%;width:0;background:var(--tinta);border-radius:99px;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+[data-theme="escuro"] .nivel span{background:var(--menta)}
+.tipos{margin-top:48px;border-top:2px dashed var(--linha);padding-top:30px}
+.tipos h3{font-size:1.4rem;margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;list-style:none}
+.chips li{padding:8px 16px;border:2px solid var(--tinta);border-radius:8px;background:var(--card);font-weight:500;font-size:.95rem}
+
+.projetos{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.proj{background:var(--card);border:2px solid var(--tinta);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s}
+.proj:hover{transform:translateY(-4px)}
+.proj .capa{height:130px;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:1.5rem;color:#13203a;border-bottom:2px solid var(--tinta)}
+.proj .corpo{padding:20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.proj h3{font-size:1.3rem}
+.proj p{color:var(--suave);font-size:.95rem;flex:1}
+.etiquetas{display:flex;gap:6px;flex-wrap:wrap}
+.etiquetas span{font-family:var(--mono);font-size:.74rem;padding:3px 8px;background:var(--papel2);border-radius:4px}
+.proj button{align-self:flex-start;background:none;border:none;border-bottom:3px solid var(--sinal);font:inherit;font-weight:700;color:var(--tinta);cursor:pointer;padding:2px 0}
+.proj button:hover{border-color:var(--menta)}
+
+dialog{margin:auto;border:2px solid var(--tinta);border-radius:14px;padding:32px;width:min(560px,92%);background:var(--card);color:var(--tinta);box-shadow:10px 10px 0 var(--sinal)}
+dialog::backdrop{background:rgba(10,15,30,.6)}
+dialog h3{font-size:1.6rem;margin-bottom:12px}
+dialog p{margin-bottom:14px}
+dialog ul{margin:0 0 20px 20px}
+dialog .fechar{float:right;background:none;border:2px solid var(--tinta);border-radius:50%;width:36px;height:36px;cursor:pointer;color:var(--tinta);font-size:1rem}
+
+.contato{display:grid;grid-template-columns:1fr 1.2fr;gap:48px}
+form{background:var(--card);border:2px solid var(--tinta);border-radius:12px;padding:28px;display:grid;gap:18px;box-shadow:8px 8px 0 var(--tinta)}
+label{font-weight:700;font-size:.92rem;display:block;margin-bottom:6px}
+input,textarea{width:100%;padding:12px 14px;border:2px solid var(--tinta);border-radius:8px;font:inherit;background:var(--papel);color:var(--tinta)}
+textarea{min-height:130px;resize:vertical}
+.erro{color:#c0392b;font-size:.82rem;min-height:1.2em;margin-top:4px}
+[data-theme="escuro"] .erro{color:#ff8f84}
+input.inv,textarea.inv{border-color:#c0392b}
+#retorno{font-weight:700}
+.contador{font-family:var(--mono);font-size:.75rem;color:var(--suave);text-align:right}
+
+footer{background:var(--tinta);color:var(--papel);padding:36px 0}
+[data-theme="escuro"] footer{background:#070b16}
+.rodape{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;font-size:.92rem}
+.rodape a{color:var(--sinal)}
+#topo{position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;border:2px solid var(--tinta);background:var(--sinal);color:#13203a;font-size:1.2rem;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s;z-index:40}
+#topo.v{opacity:1;pointer-events:auto}
+
+@media(max-width:860px){
+.hero,.sobre,.contato{grid-template-columns:1fr}
+.burger{display:block}
+nav{position:absolute;top:64px;left:0;right:0;background:var(--papel);border-bottom:2px solid var(--tinta);display:none;padding:12px 4%}
+nav.aberto{display:block}
+nav ul{flex-direction:column;align-items:stretch}
+nav a.lk{padding:12px}
+.tema{margin:8px 0 0}
+section{padding:72px 0}
+#inicio{padding-top:120px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap barra">
+<a class="marca" href="#inicio">&lt;pedro/&gt;</a>
+<button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false">☰</button>
+<nav id="menu" aria-label="Principal">
+<ul>
+<li><a class="lk" href="#inicio">Início</a></li>
+<li><a class="lk" href="#sobre">Sobre mim</a></li>
+<li><a class="lk" href="#tecnologias">Tecnologias</a></li>
+<li><a class="lk" href="#projetos">Projetos</a></li>
+<li><a class="lk" href="#contato">Contato</a></li>
+<li><button class="tema" id="tema" aria-label="Alternar tema claro e escuro">◐</button></li>
+</ul>
+</nav>
+</div>
+<div id="progresso"></div>
+</header>
+
+<main>
+<section id="inicio">
+<div class="wrap hero">
+<div>
+<h1>Estudante de desenvolvimento de sistemas transformando <span>regra de negócio</span> em sistema que funciona.</h1>
+<p>Sou o Pedro, estou no 2º ano do Ensino Médio integrado ao curso de Desenvolvimento de Sistemas e quero aprender em projetos reais, do banco de dados à interface.</p>
+<div class="botoes">
+<a class="btn" href="#projetos">Ver projetos</a>
+<a class="btn vazio" href="#contato">Falar comigo</a>
+</div>
+</div>
+<div class="editor" aria-label="Resumo em formato de código">
+<div class="topo"><i></i><i></i><i></i><b>perfil.js</b></div>
+<pre id="codigo"></pre>
+</div>
+</div>
+</section>
+
+<section id="sobre">
+<div class="wrap sobre">
+<div class="foto" id="foto" aria-label="Foto de perfil">P</div>
+<div>
+<h2>Sobre mim</h2>
+<p>Comecei a programar por curiosidade, montando pequenas páginas para a minha família, e percebi que gosto mesmo é de entender um problema e desenhar a solução. Hoje faço o Ensino Médio integrado ao curso de Desenvolvimento de Sistemas e estudo lógica, banco de dados e desenvolvimento web de forma prática.</p>
+<p>Prefiro aprender construindo: cada disciplina vira um projeto pequeno, e cada projeto me mostra o que ainda preciso estudar. Trabalho bem em equipe, gosto de revisar código com os colegas e costumo documentar o que faço.</p>
+<div class="fatos">
+<div class="fato"><small>Formação</small><strong>Médio integrado, 2º ano</strong></div>
+<div class="fato"><small>Foco atual</small><strong>Python e SQL</strong></div>
+<div class="fato"><small>Quero</small><strong>Praticar em projetos reais</strong></div>
+<div class="fato"><small>Idiomas</small><strong>Português e inglês técnico</strong></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="tecnologias">
+<div class="wrap">
+<h2>Linguagens, tecnologias e ferramentas</h2>
+<p class="sub">O que eu uso, o que estou estudando e como cada coisa entra nos sistemas que consigo construir. A barra mostra meu nível de confiança hoje.</p>
+<div class="abas" role="tablist" id="abas"></div>
+<div class="grade" id="grade" role="tabpanel"></div>
+<div class="tipos">
+<h3>Sistemas que consigo desenvolver</h3>
+<ul class="chips">
+<li>Sites responsivos</li>
+<li>Sistemas de cadastro com Python e SQL</li>
+<li>Programas de console em Python e C</li>
+<li>Modelagem e consultas em banco relacional</li>
+<li>Automação de tarefas com scripts</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="projetos">
+<div class="wrap">
+<h2>Meus projetos</h2>
+<p class="sub">Trabalhos feitos nas disciplinas e por conta própria. Abra cada um para ver o que foi feito e o que aprendi.</p>
+<div class="projetos" id="listaProj"></div>
+</div>
+</section>
+
+<section id="contato">
+<div class="wrap contato">
+<div>
+<h2>Contato</h2>
+<p>Quer conversar sobre uma vaga, um projeto ou trocar ideias sobre código? Deixe seu nome, seu e-mail e uma mensagem no formulário.</p>
+</div>
+<form id="form" novalidate>
+<div><label for="nome">Nome</label><input id="nome" name="nome" type="text" autocomplete="name"><div class="erro" data-para="nome"></div></div>
+<div><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email"><div class="erro" data-para="email"></div></div>
+<div><label for="msg">Mensagem</label><textarea id="msg" name="msg" maxlength="500"></textarea><div class="contador" id="contador">0/500</div><div class="erro" data-para="msg"></div></div>
+<button class="btn" type="submit">Enviar mensagem</button>
+<p id="retorno" role="status"></p>
+</form>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap rodape">
+<span>© <span id="ano"></span> Pedro. Feito com HTML, CSS e JavaScript.</span>
+<a href="#inicio">Voltar ao início</a>
+</div>
+</footer>
+
+<button id="topo" aria-label="Voltar ao topo">↑</button>
+
+<dialog id="modal">
+<button class="fechar" id="fechar" aria-label="Fechar">✕</button>
+<h3 id="mTitulo"></h3>
+<p id="mDesc"></p>
+<ul id="mLista"></ul>
+<div class="etiquetas" id="mTec"></div>
+</dialog>
+
+<script>
+const tecnologias=[
+{n:"Python",c:"Linguagens",v:4,s:"Domino",d:"Minha linguagem principal: scripts de automação, leitura de arquivos, exercícios de lógica e pequenas aplicações."},
+{n:"JavaScript",c:"Linguagens",v:3,s:"Domino",d:"Manipulação do DOM, eventos, validação de formulários e organização do código em funções."},
+{n:"C",c:"Linguagens",v:2,s:"Estudando",d:"Ponteiros, vetores e gerenciamento de memória para entender o que acontece por baixo."},
+{n:"HTML5",c:"Web",v:5,s:"Domino",d:"Estrutura semântica, formulários e acessibilidade básica."},
+{n:"CSS3",c:"Web",v:4,s:"Domino",d:"Flexbox, Grid, variáveis CSS e layouts responsivos sem frameworks."},
+{n:"SQL",c:"Bancos de dados",v:3,s:"Domino",d:"Criação de tabelas, chaves estrangeiras, joins e consultas com filtros e agregações."}
+];
+const projetos=[
+{t:"Gastos mensais",cor:"#ffc83d",sig:"R$",r:"Programa em Python que registra despesas por categoria, guarda tudo em um banco e mostra o total do mês.",tec:["Python","SQL"],pts:["Tabelas de categorias e despesas relacionadas","Consultas com soma agrupada por categoria","Menu em terminal com validação das entradas"]},
+{t:"Agenda de tarefas",cor:"#5fcfb6",sig:"[ ]",r:"Aplicação web para organizar tarefas por prioridade, com filtros e dados guardados no navegador.",tec:["HTML","CSS","JavaScript"],pts:["Manipulação do DOM sem bibliotecas","Persistência com localStorage","Layout adaptado para celular"]},
+{t:"Cadastro de alunos",cor:"#ff9ec4",sig:"SQL",r:"Modelagem de um banco para alunos, cursos e matrículas, com consultas para relatórios.",tec:["SQL"],pts:["Modelo entidade-relacionamento desenhado antes das tabelas","Joins entre três tabelas","Consultas para listar alunos por curso e contar matrículas"]},
+{t:"Calculadora de notas",cor:"#9db8ff",sig:"C",r:"Programa de console em C que lê as notas de uma turma e calcula média, maior nota e situação de cada aluno.",tec:["C"],pts:["Uso de vetores e funções","Leitura e validação de dados digitados","Formatação da saída em tabela"]}
+];
+const $=s=>document.querySelector(s);
+const html=document.documentElement;
+
+const alvo=[
+'<span class="c">// resumo do perfil</span>',
+'<span class="k">const</span> dev = {',
+'  nome: <span class="s">"Pedro"</span>,',
+'  curso: <span class="s">"Desenvolvimento de Sistemas"</span>,',
+'  linguagens: [<span class="s">"Python"</span>, <span class="s">"JavaScript"</span>, <span class="s">"C"</span>],',
+'  banco: <span class="s">"SQL"</span>,',
+'  web: [<span class="s">"HTML"</span>, <span class="s">"CSS"</span>],',
+'  aprendendoTodoDia: <span class="n">true</span>',
+'};'
+];
+(function digitar(){
+const el=$("#codigo");
+const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(reduz){el.innerHTML=alvo.join("\n");return}
+let linha=0,col=0;
+function passo(){
+const texto=alvo.slice(0,linha).join("\n")+(linha?"\n":"");
+const atual=alvo[linha]||"";
+const tmp=document.createElement("div");
+tmp.innerHTML=atual;
+const puro=tmp.textContent;
+if(linha>=alvo.length){el.innerHTML=alvo.join("\n")+'<span class="cursor"></span>';return}
+col++;
+let mostrado="",contagem=0,dentro=false;
+for(const ch of atual){
+if(ch==="<")dentro=true;
+if(!dentro){if(contagem>=col)break;contagem++}
+mostrado+=ch;
+if(ch===">")dentro=false;
+}
+const abre=(mostrado.match(/<span/g)||[]).length-(mostrado.match(/<\/span>/g)||[]).length;
+el.innerHTML=texto+mostrado+"</span>".repeat(Math.max(abre,0))+'<span class="cursor"></span>';
+if(col>=puro.length){linha++;col=0;setTimeout(passo,160)}else setTimeout(passo,28)
+}
+passo()
+})();
+
+const menu=$("#menu"),burger=$("#burger");
+burger.addEventListener("click",()=>{
+const aberto=menu.classList.toggle("aberto");
+burger.setAttribute("aria-expanded",aberto);
+burger.textContent=aberto?"✕":"☰"
+});
+menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+menu.classList.remove("aberto");burger.setAttribute("aria-expanded","false");burger.textContent="☰"
+}));
+
+const links=[...document.querySelectorAll("nav a.lk")];
+const obs=new IntersectionObserver(es=>{
+es.forEach(e=>{
+if(e.isIntersecting){
+links.forEach(l=>l.classList.toggle("ativo",l.getAttribute("href")==="#"+e.target.id))
+}
+})
+},{rootMargin:"-45% 0px -50% 0px"});
+document.querySelectorAll("main section").forEach(s=>obs.observe(s));
+
+const prog=$("#progresso"),topo=$("#topo");
+addEventListener("scroll",()=>{
+const max=document.documentElement.scrollHeight-innerHeight;
+prog.style.width=(scrollY/max*100)+"%";
+topo.classList.toggle("v",scrollY>600)
+},{passive:true});
+topo.addEventListener("click",()=>scrollTo({top:0}));
+
+function aplicarTema(t){html.dataset.theme=t;try{localStorage.setItem("tema",t)}catch(e){}}
+let salvo=null;
+try{salvo=localStorage.getItem("tema")}catch(e){}
+aplicarTema(salvo||(matchMedia("(prefers-color-scheme: dark)").matches?"escuro":"claro"));
+$("#tema").addEventListener("click",()=>aplicarTema(html.dataset.theme==="claro"?"escuro":"claro"));
+
+const cats=["Todas",...new Set(tecnologias.map(t=>t.c))];
+const abas=$("#abas"),grade=$("#grade");
+cats.forEach((c,i)=>{
+const b=document.createElement("button");
+b.className="aba";b.role="tab";b.textContent=c;
+b.setAttribute("aria-selected",i===0);
+b.addEventListener("click",()=>{
+abas.querySelectorAll(".aba").forEach(x=>x.setAttribute("aria-selected",x===b));
+mostrar(c)
+});
+abas.appendChild(b)
+});
+function mostrar(cat){
+grade.innerHTML="";
+tecnologias.filter(t=>cat==="Todas"||t.c===cat).forEach((t,i)=>{
+const card=document.createElement("article");
+card.className="tec";
+card.style.animationDelay=(i*35)+"ms";
+card.innerHTML=`<header><h3>${t.n}</h3><span class="selo ${t.s==="Estudando"?"est":""}">${t.s}</span></header><p>${t.d}</p><div class="nivel" role="img" aria-label="Nível ${t.v} de 5"><span data-v="${t.v*20}"></span></div>`;
+grade.appendChild(card)
+});
+requestAnimationFrame(()=>requestAnimationFrame(()=>{
+grade.querySelectorAll(".nivel span").forEach(s=>s.style.width=s.dataset.v+"%")
+}))
+}
+mostrar("Todas");
+
+const lista=$("#listaProj"),modal=$("#modal");
+projetos.forEach((p,i)=>{
+const a=document.createElement("article");
+a.className="proj";
+a.innerHTML=`<div class="capa" style="background:${p.cor}">${p.sig}</div><div class="corpo"><h3>${p.t}</h3><p>${p.r}</p><div class="etiquetas">${p.tec.map(x=>`<span>${x}</span>`).join("")}</div><button data-i="${i}">Ver detalhes</button></div>`;
+lista.appendChild(a)
+});
+lista.addEventListener("click",e=>{
+const b=e.target.closest("button[data-i]");
+if(!b)return;
+const p=projetos[b.dataset.i];
+$("#mTitulo").textContent=p.t;
+$("#mDesc").textContent=p.r;
+$("#mLista").innerHTML=p.pts.map(x=>`<li>${x}</li>`).join("");
+$("#mTec").innerHTML=p.tec.map(x=>`<span>${x}</span>`).join("");
+modal.showModal()
+});
+$("#fechar").addEventListener("click",()=>modal.close());
+modal.addEventListener("click",e=>{if(e.target===modal)modal.close()});
+
+const form=$("#form"),msg=$("#msg"),cont=$("#contador"),ret=$("#retorno");
+msg.addEventListener("input",()=>cont.textContent=msg.value.length+"/500");
+function erro(campo,texto){
+form.querySelector(`[data-para="${campo}"]`).textContent=texto;
+form.elements[campo].classList.toggle("inv",!!texto);
+return !texto
+}
+form.addEventListener("submit",e=>{
+e.preventDefault();
+ret.textContent="";
+const nome=form.nome.value.trim(),email=form.email.value.trim(),texto=msg.value.trim();
+const a=erro("nome",nome.length<3?"Informe seu nome com pelo menos 3 letras.":"");
+const b=erro("email",/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)?"":"Digite um e-mail válido, como nome@dominio.com.");
+const c=erro("msg",texto.length<10?"Escreva uma mensagem com pelo menos 10 caracteres.":"");
+if(!(a&&b&&c))return;
+ret.textContent="Obrigado, "+nome.split(" ")[0]+"! Sua mensagem foi registrada.";
+form.reset();cont.textContent="0/500"
+});
+
+$("#ano").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
